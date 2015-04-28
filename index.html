@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en_US" dir="ltr">
+<head>
+  <title>Inline CSS with external references</title>
+  <style type="text/css">
+    /**
+     * These "critical" styles are enough to give the page a decent layout and
+     * make it readable, but they include an external HTTP request to a delayed
+     * image. This example uses PHP to delay the image intentionally, but the
+     * exact same effect happens on the high-latency networks that mobile
+     * devices use every day.
+     *
+     * In some browsers — especially mobile devices — this delay blocks the
+     * rendering of the page and prevents the visitor from reading the content
+     * until after the image has downloaded. The same effect occurs with fonts
+     * that are requested inline.
+     *
+     * For that reason, you should never include external requests in your
+     * critical CSS. If you use a tool to generate critical CSS, make sure you
+     * manually inspect the styles, or better yet use an automated test to
+     * ensure that you never ship render-blocking styles.
+     */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    html {
+      height: 100%;
+    }
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 2em 0;
+      background-color: #000;
+      /* Here is our delayed image */
+      background-image: url('/img.php?delay=5000');
+      background-repeat: no-repeat;
+      background-size: cover;
+      color: #fff;
+      font-size: 1em;
+    }
+    main {
+      box-sizing: border-box;
+      width: 90%;
+      margin: 0 auto;
+      padding: 1em 2em;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    a {
+      color: white;
+      text-shadow: 0 2px 0 2px black;
+    }
+
+    @media (min-width: 536px) {
+      body {
+        font-size: 1.2em;
+      }
+      main {
+        width: 75%;
+      }
+      .read {
+        text-align: center;
+      }
+    }
+    @media (min-width: 960px) {
+      body {
+        background-size: cover;
+        font-size: 1.5em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Testing Inline CSS with External References</h1>
+    <p>When CSS loads this page will be white text on a black background... until a background image loads. Or, it may delay the rendering completely until the image loads.</p>
+    <p>If you had to wait several seconds looking at a white screen before seeing both this text and the image, your browser blocked the rendering of the page.</p>
+    <p>The inline styles on this page have an artifical delay built into to the external request, demonstrating how <strong>inline CSS can still block rendering in many browsers</strong>. Especially mobile browsers.</p>
+    <p>Be careful to avoid this on a real website!</p>
+
+    <p class="read">Read the Fourword for more <a href="###">frontend performance tips</a>.</p>
+  </main>
+</body>
+</html>
