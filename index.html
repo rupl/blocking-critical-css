@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en_US" dir="ltr">
 <head>
+  <meta charset="utf-8">
   <title>Inline CSS with external references</title>
   <style type="text/css">
     /**
@@ -20,6 +21,7 @@
      * manually inspect the styles, or better yet use an automated test to
      * ensure that you never ship render-blocking styles.
      */
+
     *, *::before, *::after {
       box-sizing: border-box;
     }
@@ -71,13 +73,13 @@
 </head>
 <body>
   <main>
-    <h1>Testing Inline CSS with External References</h1>
+    <h1>Critical CSS that blocks rendering</h1>
     <p>When CSS loads this page will be white text on a black background... until a background image loads. Or, it may delay the rendering completely until the image loads.</p>
     <p>If you had to wait several seconds looking at a white screen before seeing both this text and the image, your browser blocked the rendering of the page.</p>
-    <p>The inline styles on this page have an artifical delay built into to the external request, demonstrating how <strong>inline CSS can still block rendering in many browsers</strong>. Especially mobile browsers.</p>
+    <p>The page's inline styles have an artifical delay built into the external image request, demonstrating how <strong>inline CSS can still block rendering in many browsers</strong>. Especially mobile browsers.</p>
     <p>Be careful to avoid this on a real website!</p>
 
-    <p class="read">Read the Fourword for more <a href="###">frontend performance tips</a>.</p>
+    <p class="read">Learn more about <a href="http://fourword.fourkitchens.com/article/automating-critical-css-without-blocking-renders">inline CSS that blocks rendering</a>.</p>
   </main>
 </body>
 </html>
